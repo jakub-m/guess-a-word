@@ -5,7 +5,6 @@ import { LetterRow, stringToRichText } from './LetterRow';
 import { getWordFromRow } from './wordUtils';
 import { useNavigate } from 'react-router-dom';
 import { encodeB64 } from './encoding';
-import { basename } from './url';
 
 const nLetters = 5
 const blank = " "
@@ -27,7 +26,7 @@ export const ProposeApp = () => {
       if (word.length !== nLetters) {
         return
       }
-      navigate("/guess?w=" + encodeB64(word))
+      navigate("?p=guess&w=" + encodeB64(word))
     } else if (letter) {
       const i = proposed.findIndex((rl) => rl.letter === blank)
       if (i === -1) {

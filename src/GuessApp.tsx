@@ -4,9 +4,9 @@ import { Keyboard, KeyboardHandleClickArgs } from './Keyboard';
 import { Grid } from './Grid';
 import { RichLetter } from './LetterRow';
 import './globals'
-import { getAnswer, compareWordsAsRichLetter, getWordFromRow } from './wordUtils';
+import { compareWordsAsRichLetter, getWordFromRow } from './wordUtils';
 import { State } from './Letter';
-import { useSearchParamsState, useSearchParamsValue } from './useStateParamsHook';
+import { useSearchParamsValue } from './useStateParamsHook';
 import { decodeB64, encodeB64 } from './encoding';
 
 const charBlank = ' '
