@@ -5,6 +5,7 @@ import { LetterRow, stringToRichText } from './LetterRow';
 import { getWordFromRow } from './wordUtils';
 import { useNavigate } from 'react-router-dom';
 import { encodeB64 } from './encoding';
+import { basename } from './url';
 
 const nLetters = 5
 const blank = " "

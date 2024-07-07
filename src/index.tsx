@@ -6,8 +6,7 @@ import { ProposeApp } from './ProposeApp';
 import { GuessApp } from './GuessApp';
 import { Redirect } from './Redirect';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
-const basename = process.env.REACT_APP_PAGE_ROOT || '/';
+import { basename } from './url';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
