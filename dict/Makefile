@@ -1,5 +1,8 @@
-default: cli_query_filter.js cli_generate_boomfilter.js
+default: copy
 
+copy: filter_data.ts
+	mkdir -p ../src/dict
+	cp -fv filter_data.ts filter.ts ../src/dict/
 cli_query_filter.js: cli_query_filter.ts filter_data.ts
 	npx tsc cli_query_filter.ts
 filter_data.ts: cli_generate_boomfilter.js

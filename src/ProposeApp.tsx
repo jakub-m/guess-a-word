@@ -1,15 +1,17 @@
-import {useState} from 'react';
+import {useState, useMemo} from 'react';
 import './App.css';
 import { Keyboard, KeyboardHandleClickArgs } from './Keyboard';
 import { LetterRow, stringToRichText } from './LetterRow';
 import { getWordFromRow } from './wordUtils';
 import { useNavigate } from 'react-router-dom';
 import { encodeB64 } from './encoding';
+import { Dict } from './dict/dict';
 
 const nLetters = 5
 const blank = " "
 
 export const ProposeApp = () => {
+  const dict = useMemo(() => new Dict(), [])
   const [proposed, setProposed] = useState(stringToRichText(blank.repeat(nLetters)))
   const navigate = useNavigate()
   const handleKeyboardClick = ({letter, isBackspace, isReturn}: KeyboardHandleClickArgs) => {
@@ -24,6 +26,9 @@ export const ProposeApp = () => {
     } else if (isReturn) {
       const word = getWordFromRow(proposed, blank)
       if (word.length !== nLetters) {
+        return
+      }
+      if (!dict.contains(word)) {
         return
       }
       navigate("?p=guess&w=" + encodeB64(word))

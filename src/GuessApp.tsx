@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useMemo} from 'react';
 import './App.css';
 import { Keyboard, KeyboardHandleClickArgs } from './Keyboard';
 import { Grid } from './Grid';
@@ -8,6 +8,7 @@ import { compareWordsAsRichLetter, getWordFromRow } from './wordUtils';
 import { State } from './Letter';
 import { useSearchParamsValue } from './useStateParamsHook';
 import { decodeB64, encodeB64 } from './encoding';
+import { Dict } from './dict/dict';
 
 const charBlank = ' '
 const answerLength = 5
@@ -58,6 +59,7 @@ const getStateMapFromRows = (rows: RichLetter[][]): {[letter: string]: State} =>
 }
 
 export const GuessApp = () => {
+  const dict = useMemo(() => new Dict(), [])
   const [grid, setGrid] = useState(getEmptyGrid())
   const encodedAnswer = useSearchParamsValue(paramWord, defaultEncodedAnswer)
   // If activeRowIndex is >= grid.length, it means that the user already hit enter at the final row.
@@ -83,6 +85,9 @@ export const GuessApp = () => {
     } else if (isReturn) {
       const currentWord = getWordFromRow(row, charBlank)
       if (currentWord.length !== answerLength) {
+        return
+      }
+      if (!dict.contains(currentWord)) {
         return
       }
       const newRow = compareWordsAsRichLetter(currentWord, decodeB64(encodedAnswer))
