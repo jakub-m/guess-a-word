@@ -1,5 +1,4 @@
 import {useState, useMemo} from 'react';
-import './App.css';
 import { Keyboard, KeyboardHandleClickArgs } from './Keyboard';
 import { Grid } from './Grid';
 import { RichLetter } from './LetterRow';
@@ -9,6 +8,7 @@ import { State } from './Letter';
 import { useSearchParamsValue } from './useStateParamsHook';
 import { decodeB64, encodeB64 } from './encoding';
 import { Dict } from './dict/dict';
+import { Prize } from './Prize/Prize';
 
 const charBlank = ' '
 const answerLength = 5
@@ -64,6 +64,9 @@ export const GuessApp = () => {
   const encodedAnswer = useSearchParamsValue(paramWord, defaultEncodedAnswer)
   // If activeRowIndex is >= grid.length, it means that the user already hit enter at the final row.
   const [activeRowIndex, setActiveRowIndex] = useState(0)
+  const [showPrize, setShowPrize] = useState(false)
+
+  const answer = decodeB64(encodedAnswer)
 
   const handleKeyboardClick = ({letter, isBackspace, isReturn}: KeyboardHandleClickArgs) => {
     if (activeRowIndex >= grid.length) {
@@ -90,11 +93,13 @@ export const GuessApp = () => {
       if (!dict.contains(currentWord)) {
         return
       }
-      const newRow = compareWordsAsRichLetter(currentWord, decodeB64(encodedAnswer))
+      const newRow = compareWordsAsRichLetter(currentWord, answer)
       setActiveRowIndex(activeRowIndex+1)
       grid[activeRowIndex] = newRow
       setGrid([...grid])
-
+      if (currentWord === answer) {
+        setShowPrize(true)
+      }
     } else {
       const i = row.findIndex((e) => e.letter === charBlank)
       if (i === -1) {
@@ -116,6 +121,7 @@ export const GuessApp = () => {
       <Grid rows={grid} />
       <div style={{height: '2rem'}}></div>
       <Keyboard handleClick={handleKeyboardClick} getLetterState={getLetterState}/>
+      {showPrize ? <Prize seed={answer}/> : null}
     </>
   )
 }

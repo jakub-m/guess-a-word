@@ -1,5 +1,4 @@
 import {useState, useMemo} from 'react';
-import './App.css';
 import { Keyboard, KeyboardHandleClickArgs } from './Keyboard';
 import { LetterRow, stringToRichText } from './LetterRow';
 import { getWordFromRow } from './wordUtils';

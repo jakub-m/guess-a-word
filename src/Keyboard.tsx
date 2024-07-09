@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import { LetterRow, RichLetter, LetterRowHandleClickArgs } from './LetterRow';
 import { State } from './Letter';
 
@@ -49,9 +48,7 @@ const Keyboard: React.FC<KeyboardProps> = ({handleClick, getLetterState, alphabe
   }
 
   return (
-    <div className="app">
       <LetterRow letters={keys} handleClick={internalHandleClick}/>
-    </div>
   );
 }
 

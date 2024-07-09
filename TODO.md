@@ -1,8 +1,7 @@
 TODO
 ----
 
-- Check words with dictionary
-- Show prize at the end - large random icon
+- Blink illegal word
 - Center the view
 - Button to copy URL to share
 - Button to go to Propose

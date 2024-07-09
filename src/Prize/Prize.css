@@ -1,0 +1,21 @@
+.prize-fly {
+  position: absolute;
+  left: 25vw;
+  top: 0;
+  font-size: 50vw;
+  animation: prize-fly-keyframes 3s linear infinite;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards; /* stop at the end */
+}
+
+@keyframes prize-fly-keyframes {
+  0% {
+    transform: translateY(-100%);
+  }
+  75% {
+    transform: translateY(100vh);
+  }
+  100% {
+    transform: translateY(50vh);
+  }
+}
